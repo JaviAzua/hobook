@@ -34,7 +34,9 @@ export default function Footer({}: Props) {
         <p className="footerItem">Manage Your Content</p>
         <p className="footerItem">Help</p>
       </div>
-      <p>Web site made by Javier Azua for educational purposes</p>
+      <p className="absolute bottom-0 text-sm">
+        Web site made by Javier Azua for educational purposes
+      </p>
     </div>
   );
 }

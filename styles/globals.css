@@ -9,4 +9,7 @@
   .buttonHeader {
     @apply tracking-widest text-2xl md:text-lg flex-1 text-center hover:tracking-normal duration-300;
   }
+  .footerItem {
+    @apply text-sm mt-1 cursor-pointer hover:underline;
+  }
 }

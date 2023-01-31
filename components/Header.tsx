@@ -10,18 +10,38 @@ import { BiMenu } from "react-icons/bi";
 import { FiSearch } from "react-icons/fi";
 import { useState } from "react";
 import { DateRangePicker, RangeKeyDict } from "react-date-range";
+import { useRouter } from "next/router";
 
-type Props = {};
+type Props = {
+  placeholder: string;
+};
 
-function Header({}: Props) {
+function Header({ placeholder }: Props) {
   const [searched, setSearched] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [noOfGuest, setNoOfGuest] = useState("1");
+  const router = useRouter();
 
   const handleSelect = (rangesByKey: RangeKeyDict) => {
     setStartDate(rangesByKey.selection.startDate!);
     setEndDate(rangesByKey.selection.endDate!);
+  };
+
+  const handleBack = () => {
+    router.push("/");
+  };
+
+  const handleSearch = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        location: searched,
+        startDate: startDate.toDateString(),
+        endDate: endDate.toDateString(),
+        noOfGuest,
+      },
+    });
   };
 
   const selectionRange = {
@@ -36,8 +56,9 @@ function Header({}: Props) {
         className={`sticky top-0 grid py-6 grid-cols-3 text-center items-center px-10`}
       >
         <Image
+          onClick={handleBack}
           alt=""
-          className=""
+          className="cursor-pointer"
           src={"/hoBook.svg"}
           width={60}
           height={100}
@@ -48,7 +69,7 @@ function Header({}: Props) {
             onChange={(e) => setSearched(e.target.value)}
             type="text"
             className=" placeholder:text-gray-400 text-sm flex-grow ml-2 bg-transparent outline-none overflow-hidden"
-            placeholder="Where are u going?"
+            placeholder={placeholder || `Where are u going?`}
           />
           <div className="hidden md:inline-flex bg-greenFirst rounded-full justify-center items-center p-1">
             <FiSearch className="h-6 w-6 text-white rounded-full bg-greenFirst cursor-pointer" />
@@ -98,7 +119,12 @@ function Header({}: Props) {
                 >
                   Cancel
                 </button>
-                <button className="buttonHeader text-greenFirst">Search</button>
+                <button
+                  onClick={handleSearch}
+                  className="buttonHeader text-greenFirst"
+                >
+                  Search
+                </button>
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ export default function Home({ destinations, cards }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      <Header placeholder="" />
 
       <Banner />
 
